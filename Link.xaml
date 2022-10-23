@@ -1,0 +1,45 @@
+﻿<Window x:Class="DBMS_UI.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DBMS_UI"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="400">
+    <Grid Width="380" Height="400">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button>常规</Button>
+                <Button>高级</Button>
+                <Button>数据库</Button>
+                <Button>SSL</Button>
+                <Button>SSH</Button>
+                <Button>HTTP</Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Background="#F0F0F0">
+            <Image  Source="Resources/Navicat.jpeg" Margin="116,19,230,293" RenderTransformOrigin="0.969,0.5"></Image>
+            <Image  Source="Resources/DataBase.jpeg" Margin="230,20,116,293" RenderTransformOrigin="0.969,0.5"></Image>
+            <TextBlock Margin="39,120,301,214" Text="连接名"/>
+            <TextBox BorderThickness="1" Margin="136,120,22,214"/>
+            <TextBlock Margin="39,163,301,171" Text="主机"/>
+            <TextBox BorderThickness="1" Margin="136,163,22,171"/>
+            <TextBlock Margin="39,184,301,150" Text="端口"/>
+            <TextBox BorderThickness="1" Margin="136,184,190,150"/>
+            <TextBlock Margin="39,205,301,129" Text="用户名"/>
+            <TextBox BorderThickness="1" Margin="136,205,133,129"/>
+            <TextBlock Margin="39,226,301,108" Text="密码"/>
+            <TextBox BorderThickness="1" Margin="136,226,131,108"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Button Width="100" HorizontalAlignment="Left">测试连接</Button>
+            <Button Width="50" HorizontalAlignment="Left" Margin="275,0,0,0">确定</Button>
+            <Button Width="50" HorizontalAlignment="Left" Margin="330,0,0,0">取消</Button>
+        </Grid>
+    </Grid>
+</Window>
