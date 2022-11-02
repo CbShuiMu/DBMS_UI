@@ -26,20 +26,20 @@
             <Image  Source="Resources/Navicat.jpeg" Margin="116,19,230,293" RenderTransformOrigin="0.969,0.5"></Image>
             <Image  Source="Resources/DataBase.jpeg" Margin="230,20,116,293" RenderTransformOrigin="0.969,0.5"></Image>
             <TextBlock Margin="39,120,301,214" Text="连接名"/>
-            <TextBox BorderThickness="1" Margin="136,120,22,214"/>
+            <TextBox Name="LinkName" BorderThickness="1" Margin="136,120,22,214"/>
             <TextBlock Margin="39,163,301,171" Text="主机"/>
-            <TextBox BorderThickness="1" Margin="136,163,22,171"/>
+            <TextBox Name="Mainframe"  BorderThickness="1" Margin="136,163,22,171" Text="localhost"/>
             <TextBlock Margin="39,184,301,150" Text="端口"/>
-            <TextBox BorderThickness="1" Margin="136,184,190,150"/>
+            <TextBox Name="Port" BorderThickness="1" Margin="136,184,190,150" Text="3306"/>
             <TextBlock Margin="39,205,301,129" Text="用户名"/>
-            <TextBox BorderThickness="1" Margin="136,205,133,129"/>
+            <TextBox Name="Username" BorderThickness="1" Margin="136,205,133,129" Text="root"/>
             <TextBlock Margin="39,226,301,108" Text="密码"/>
-            <TextBox BorderThickness="1" Margin="136,226,131,108"/>
+            <TextBox Name="Password" BorderThickness="1" Margin="136,226,131,108"/>
         </Grid>
         <Grid Grid.Row="2">
             <Button Width="100" HorizontalAlignment="Left">测试连接</Button>
-            <Button Width="50" HorizontalAlignment="Left" Margin="275,0,0,0">确定</Button>
-            <Button Width="50" HorizontalAlignment="Left" Margin="330,0,0,0">取消</Button>
+            <Button Width="50" HorizontalAlignment="Left" Margin="275,0,0,0" Click="Confirm">确定</Button>
+            <Button Width="50" HorizontalAlignment="Left" Margin="330,0,0,0" Click="Cancel">取消</Button>
         </Grid>
     </Grid>
 </Window>

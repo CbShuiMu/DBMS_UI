@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DBMS_UI"
         mc:Ignorable="d"
-        Title="DBMS" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True">
+        Title="DBMS" Height="450" Width="800" WindowStyle="SingleBorderWindow">
     <Window.Resources>
+        <!--资源库存放控件样式以及后台可能会使用的资源（如图片之类的）-->
         <Style TargetType="{x:Type Button}" x:Key="ButtonOne" >
+            <!--TargetType既目标样式，Key相当于Name，Setter相当于属性设置 Property相当于属性 Value是属性的设置值-->
             <Setter Property="Background" Value="#F0F0F0"/>
             <Setter Property="Width" Value="46"/>
             <Setter Property="FontSize" Value="12.5"/>
@@ -20,6 +22,20 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="{x:Type Button}" x:Key="ButtonThree" >
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="FontSize" Value="12.5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="Bottom_ButtonOne" >
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="FontSize" Value="12.5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type ToggleButton}" x:Key="ToggleButtonOne" >
             <Setter Property="Height" Value="20"/>
             <Setter Property="Background" Value="white"/>
             <Setter Property="FontSize" Value="12.5"/>
@@ -43,6 +59,7 @@
             <Setter Property="BorderBrush" Value="#918C8C"/>
             <Setter Property="BorderThickness" Value="0 0 0 0"/>
             <Setter Property="Template">
+                <!--网上抄来的展开样式-->
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Expander}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" SnapsToDevicePixels="True">
@@ -118,33 +135,29 @@
             </Setter>
         </Style>
         <ContextMenu x:Key="MySqlMenu">
-            <MenuItem Name="MySql_OpenLink" Header="打开连接"/>
-            <MenuItem Name="MySql_Newlink" Header="新建连接"/>
-            <MenuItem Name="MySql_DelLink" Header="删除连接"/>
+            <!--预设的菜单-->
+            <MenuItem Name="MySql_New" Header="新建连接" Click="LinkWindow_Open"/>
+            <MenuItem Name="MySql_Del" Header="删除连接" Click="MySql_Del"/>
+            <MenuItem Name="DataBase_New1" Header="新建数据库" Click="DataBaseWindow_Open"/>
         </ContextMenu>
         <ContextMenu x:Key="DataBaseMenu">
-            <MenuItem Name="DataBase_OpenLink" Header="打开数据库"/>
-            <MenuItem Name="DataBase_Newlink" Header="新建数据库"/>
-            <MenuItem Name="DataBase_DelLink" Header="删除数据库"/>
+            <MenuItem Name="DataBase_New" Header="新建数据库" Click="DataBaseWindow_Open"/>
+            <MenuItem Name="DataBase_Del" Header="删除数据库" />
         </ContextMenu>
         <ContextMenu x:Key="FormMenu">
-            <MenuItem Name="Form_OpenLink" Header="打开数据库"/>
-            <MenuItem Name="Form_Newlink" Header="新建数据库"/>
-            <MenuItem Name="Form_DelLink" Header="删除数据库"/>
+            <MenuItem Name="Form_New" Header="新建表"/>
+            <MenuItem Name="Form_Del" Header="删除表"/>
         </ContextMenu>
-        <HeaderedContentControl x:Key="HeaderStyle1">
-            <Button Style="{StaticResource ButtonThree}" ContextMenu="{StaticResource MySqlMenu}" Click="UnFold">
-                <WrapPanel Width="220" Height="20">
-                    <Image Source="Resources/MySql.jpeg"/>
-                    <TextBlock Text="{TemplateBinding}"/>
-                </WrapPanel>
-            </Button>
-        </HeaderedContentControl>
-        <Image x:Key="Mysql" Source="Resources/MySql.jpeg">
+        <Image x:Key="MySql" Source="Resources/MySql.jpeg">
         </Image>
+        <Image x:Key="DataBase" Source="Resources/DataBase.jpeg">
+        </Image>
+        <TextBox x:Key="TB" Background="White" Margin="2" BorderThickness="0" AcceptsReturn="True" TextChanged="TextBox_TextChanged">
+        </TextBox>
     </Window.Resources>
     <Grid Name="grid" Background="Transparent">
         <Grid.RowDefinitions>
+            <!--设置行-->
             <RowDefinition Height="24">
             </RowDefinition>
             <RowDefinition Height="66">
@@ -154,8 +167,10 @@
             <RowDefinition Height="20">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="0">
+        <Grid Grid.Row="0">
+            <!--第一行-->
             <StackPanel Grid.Row="0" Background="#F0F0F0" Orientation="Horizontal">
+                <!--Stack可以放多个子控件-->
                 <Button Style="{StaticResource ButtonOne}">文件</Button>
                 <Button Style="{StaticResource ButtonOne}">编辑</Button>
                 <Button Style="{StaticResource ButtonOne}">查看</Button>
@@ -163,67 +178,74 @@
                 <Button Style="{StaticResource ButtonOne}">工具</Button>
                 <Button Style="{StaticResource ButtonOne}">窗口</Button>
                 <Button Style="{StaticResource ButtonOne}">帮助</Button>
-                <Button Name ="Test" Style="{StaticResource ButtonOne}" Click="test">Test</Button>
+                <Button Name ="Test1" Style="{StaticResource ButtonOne}" Click="test1">Test1</Button>
+                <Button Name ="Test2" Style="{StaticResource ButtonOne}" Click="test2">Test2</Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <!--第一行设两列-->
                 <ColumnDefinition Width="140"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Style="{StaticResource StackOne}">
+                <!--设置第一行的第一列-->
                 <Button Name="Link" Style="{StaticResource ButtonTwo}" Content="连接" Initialized="LinkMenu_Initialized" Click="LinkMenu_Click">
                     <Button.ContextMenu>
                         <ContextMenu Name="LinkMenu">
-                            <MenuItem Header="MySql" Click="LinkWindow_Click"/>
+                            <MenuItem Header="MySql" Click="LinkWindow_Open"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
-                <Button Style="{StaticResource ButtonTwo}">新建查询</Button>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Style="{StaticResource StackOne}">
-                    <Button Style="{StaticResource ButtonTwo}">表格</Button>
-                    <Button Style="{StaticResource ButtonTwo}">视图</Button>
-                    <Button Style="{StaticResource ButtonTwo}">函数</Button>
-                    <Button Style="{StaticResource ButtonTwo}">用户</Button>
-                    <Button Style="{StaticResource ButtonTwo}">其他</Button>
-                    <Button Style="{StaticResource ButtonTwo}">查询</Button>
-                    <Button Style="{StaticResource ButtonTwo}">备份</Button>
-                    <Button Style="{StaticResource ButtonTwo}">自动运行</Button>
-                    <Button Style="{StaticResource ButtonTwo}">模型</Button>
-                    <Button Style="{StaticResource ButtonTwo}">图表</Button>
-                </StackPanel>
+                <Button Style="{StaticResource ButtonTwo}" Click="New_Query">新建查询</Button>
+            </StackPanel>
+            <!--设置第一行的第二列-->
+            <StackPanel Grid.Column="1" Style="{StaticResource StackOne}">
+                <Button Style="{StaticResource ButtonTwo}" Click="New_Form">表</Button>
+                <Button Style="{StaticResource ButtonTwo}">视图</Button>
+                <Button Style="{StaticResource ButtonTwo}">函数</Button>
+                <Button Style="{StaticResource ButtonTwo}">用户</Button>
+                <Button Style="{StaticResource ButtonTwo}">其他</Button>
+                <Button Style="{StaticResource ButtonTwo}">查询</Button>
+                <Button Style="{StaticResource ButtonTwo}">备份</Button>
+                <Button Style="{StaticResource ButtonTwo}">自动运行</Button>
+                <Button Style="{StaticResource ButtonTwo}">模型</Button>
+                <Button Style="{StaticResource ButtonTwo}">图表</Button>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="2" Background="#F0F0F0">
+            <!--设置第二行-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
+                <!--设置第二行的第一列-->
                 <StackPanel Name="MySqlMenu" Background="white" Margin="2" Orientation="Vertical">
-                    <Expander Name="Shuimu" Style="{DynamicResource ExpanderStyle1}">
+                    <Expander Name="Shuimu" Style="{DynamicResource ExpanderStyle1}" IsExpanded="{Binding Path=IsChecked,ElementName=ShuiMuButton}">
+                        <!--收纳菜单-->
                         <Expander.Header>
-                            <Button Style="{StaticResource ButtonThree}" ContextMenu="{StaticResource MySqlMenu}" Click="UnFold">
+                            <ToggleButton Name="ShuiMuButton" Style="{StaticResource ToggleButtonOne}" ContextMenu="{StaticResource MySqlMenu}">
                                 <WrapPanel Width="220" Height="20">
                                     <Image Source="Resources/MySql.jpeg"/>
                                     <TextBlock Text="Shuimu"/>
                                 </WrapPanel>
-                            </Button>
+                            </ToggleButton>
                         </Expander.Header>
                         <Expander.Content>
-                            <Expander Style="{DynamicResource ExpanderStyle1}">
+                            <Expander Name="db1" Style="{DynamicResource ExpanderStyle1}" IsExpanded="{Binding Path=IsChecked,ElementName=db1Button}">
                                 <Expander.Header>
-                                    <Button Style="{StaticResource ButtonThree}" ContextMenu="{StaticResource DataBaseMenu}">
+                                    <ToggleButton Name="db1Button" Style="{StaticResource ToggleButtonOne}" ContextMenu="{StaticResource DataBaseMenu}" >
                                         <WrapPanel Width="220" Height="20">
-                                            <TextBlock Text="  " xml:space="preserve"/>
+                                            <TextBlock Text="   " xml:space="preserve"/>
                                             <Image Source="Resources/DataBase.jpeg"/>
                                             <TextBlock Text="Shuimu"/>
                                         </WrapPanel>
-                                    </Button>
+                                    </ToggleButton>
                                 </Expander.Header>
                                 <Expander.Content>
-                                    <Button Style="{StaticResource ButtonThree}" ContextMenu="{StaticResource FormMenu}">
+                                    <Button Style="{StaticResource ButtonThree}" ContextMenu="{StaticResource FormMenu}" Click="Show_Form">
                                         <WrapPanel Width="246">
                                             <TextBlock Text="      " xml:space="preserve"/>
                                             <Image Source="Resources/Web.jpeg"/>
@@ -234,21 +256,22 @@
                             </Expander>
                         </Expander.Content>
                     </Expander>
-                    <Button Style="{StaticResource ButtonThree}" ContextMenu="{StaticResource MySqlMenu}">
+                    <ToggleButton Style="{StaticResource ToggleButtonOne}" ContextMenu="{StaticResource MySqlMenu}">
                         <WrapPanel Width="246">
                             <Image Source="Resources/MySql.jpeg"/>
                             <TextBlock Text="st_01"></TextBlock>
                         </WrapPanel>
-                    </Button>
-                    <Button Style="{StaticResource ButtonThree}">
+                    </ToggleButton>
+                    <ToggleButton Style="{StaticResource ToggleButtonOne}">
                         <WrapPanel Width="246">
                             <Image Source="Resources/mysql.jpeg"/>
                             <TextBlock Text="st_02"></TextBlock>
                         </WrapPanel>
-                    </Button>
+                    </ToggleButton>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
+                <!--设置第二行的第二列-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="26"/>
                     <RowDefinition Height="24"/>
@@ -262,24 +285,57 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <StackPanel Background="#F0F0F0" Margin="2">
-                        
+
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Row="2"></Grid>
-                <Grid Grid.Row="3">
-                    <TextBox Background="White" Margin="2" BorderThickness="0" AcceptsReturn="True" TextChanged="TextBox_TextChanged">
-
-                    </TextBox>
+                <Grid Name="G2" Grid.Row="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="SendCode_Button" Click="Send_Code" BorderThickness="0" Width="50" Background="#F0F0F0" Visibility="Collapsed">
+                            <WrapPanel>
+                                <Image Source="Resources/Play.jpg"/>
+                                <TextBlock Text="运行"/>
+                            </WrapPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <Grid Name="G3" Grid.Row="3" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <RichTextBox Name="C_RichTextBox" AcceptsReturn="True" BorderThickness="0" Visibility="Collapsed">
+                        <RichTextBox.Document>
+                            <FlowDocument Focusable="True" LineHeight="1">
+                                
+                            </FlowDocument>
+                        </RichTextBox.Document>
+                    </RichTextBox>
+                    <DataGrid Name="DataGrid1" IsReadOnly="False" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" CanUserDeleteRows="True" Visibility="Collapsed">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Name="DataGrid_ButtonPanel" Grid.Row="1" Background="#F0F0F0" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="RowAdd_Button" Content="+" Click="Row_Add" Style="{StaticResource Bottom_ButtonOne}"></Button>
+                            <Button Name="RowDel_Button" Content="-" Click="Row_Del" Style="{StaticResource Bottom_ButtonOne}"></Button>
+                            <Button Name="RowSave_Button" Content="√" Click="Row_Save" Style="{StaticResource Bottom_ButtonOne}"></Button>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Grid>
             <Grid Grid.Column="2">
-                <TextBlock Background="White" Margin="2">
+                <TextBlock Background="White" Margin="2" LineHeight="1">
 
                 </TextBlock>
             </Grid>
         </Grid>
         <Grid Grid.Row="4" Background="#F0F0F0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="331*"/>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition Width="457*"/>
             </Grid.ColumnDefinitions>
         </Grid>
     </Grid>

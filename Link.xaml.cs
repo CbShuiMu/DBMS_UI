@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,9 +25,60 @@ namespace DBMS_UI
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Confirm(object sender, RoutedEventArgs e)
         {
+            //发送MySql信息
+            IList<MySql> MySql = new List<MySql>
+            {
+                new MySql
+                {
+                    LinkName=LinkName.Text,
+                    Username=Username.Text,
+                    Password=Password.Text
 
+                }
+            };
+            string json = MySql.ToJson();
+            PipeClient.MainSend(json);
+            MessageBox.Show("连接成功");
+            this.Close();
+            //PipeClient.MainSend("LinkName = " + LinkName.Text);
+            //PipeClient.MainSend("Username = " + Username.Text);
+            //PipeClient.MainSend("Password = " + Password.Text);
+        }
+
+        private void Cancel(object sender, RoutedEventArgs e)
+        {
+            //关闭当前窗口
+           this.Close();
+        }
+        public class MySql
+        {
+            public string LinkName;
+            public string Username;
+            public string Password;
+        }
+
+    }
+    static class JsonHelper
+    {
+        public static string ToJson(this object obj)
+        {
+            if (obj == null)
+            {
+                throw new ArgumentException("传入obj为空，无法继续处理请求返回！");
+            }
+            return JsonConvert.SerializeObject(obj);
+        }
+
+        public static T ToObj<T>(this string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                throw new ArgumentException("传入Json为空，无法继续处理请求返回！");
+            }
+            return JsonConvert.DeserializeObject<T>(json);
         }
     }
+
 }

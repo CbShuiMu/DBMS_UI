@@ -1,0 +1,35 @@
+﻿<Window x:Class="DBMS_UI.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DBMS_UI"
+        mc:Ignorable="d"
+        Title="Window2" Height="450" Width="400">
+    <Grid Width="380" Height="400">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button>常规</Button>
+                <Button>SQL预览</Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Background="#F0F0F0">
+            <Image  Source="Resources/DataBase.jpeg" Margin="173,20,173,293" RenderTransformOrigin="0.969,0.5"></Image>
+            <TextBlock Margin="39,120,290,214" Text="数据库名"/>
+            <TextBox Name="DataBaseName" BorderThickness="1" Margin="136,120,22,214"/>
+            <TextBlock Margin="39,163,301,171" Text="字符集"/>
+            <TextBox  BorderThickness="1" Margin="136,163,22,171" />
+            <TextBlock Margin="39,203,290,131" Text="排序规则"/>
+            <TextBox  BorderThickness="1" Margin="136,203,22,131" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Button Width="50" HorizontalAlignment="Left" Margin="275,0,0,0" Click="Confirm">确定</Button>
+            <Button Width="50" HorizontalAlignment="Left" Margin="330,0,0,0" Click="Cancel">取消</Button>
+        </Grid>
+    </Grid>
+</Window>
